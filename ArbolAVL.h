@@ -9,13 +9,13 @@ typedef struct _Nodo{
 	struct _Nodo *hizq,*hder;
 }AVL;
 
-// Una funcion para obtener el máximo entre dos enteros
+// Una funcion para obtener el mÃ¡ximo entre dos enteros
 int max(int a, int b){
     if(a>b) return a;
     else return b;
 }
 
-// Obtiene la altura del árbol
+// Obtiene la altura del Ã¡rbol
 int Altura(AVL *p){
     if(p==NULL){
         return 0;
@@ -27,11 +27,11 @@ AVL *nuevoNodo(int dato){
     nodo->dato   = dato;
     nodo->hizq   = NULL;
     nodo->hder   = NULL;
-    nodo->altura = 1;  // Nuevo nodo es inicializado añadiendo una hoja
+    nodo->altura = 1;  // Nuevo nodo es inicializado aÃ±adiendo una hoja
     return(nodo);
 }
 
-// Una función para rotar a la derecha el árbol con raíz en K1
+// Una funciÃ³n para rotar a la derecha el Ã¡rbol con raÃ­z en K1
 AVL *rotacionDerecha(AVL *K1){
 
     AVL *K2;
@@ -48,11 +48,11 @@ AVL *rotacionDerecha(AVL *K1){
     return K2;
 }
 
-// Una función para rotar a la izquierda el árbol con raíz en K2
+// Una funciÃ³n para rotar a la izquierda el Ã¡rbol con raÃ­z en K2
 AVL *rotacionIzquierda(AVL *K2){
 
     AVL *K1;
-    // Realiza la rotación
+    // Realiza la rotaciÃ³n
     K1=K2->hizq;
     K2->hizq=K1->hder;
     K1->hder=K2;
@@ -60,7 +60,7 @@ AVL *rotacionIzquierda(AVL *K2){
     //  Actualiza las alturas
     K2->altura = 1 + max(Altura(K2->hizq),Altura(K2->hder));
     K1->altura = 1 + max(Altura(K1->hizq),K2->altura);
-    // Devuelve nueva raíz
+    // Devuelve nueva raÃ­z
     return K1;
 }
 
@@ -79,13 +79,13 @@ AVL *dobleRotacionConIzquierda(AVL *arbol){
 
 AVL *InsertarValorArbolAVL(AVL *arbol, int dato)
 {
-    /* 1.  Performa una inserción BST normal */
+    /* 1.  Performa una inserciÃ³n BST normal */
     if (arbol == NULL)
         return(nuevoNodo(dato));
     if (dato < arbol->dato){
         arbol->hizq  = InsertarValorArbolAVL(arbol->hizq, dato);
         /* 3. Obtiene el balance de este nodo predecesor
-              para chequear si este nodo pasó a estar
+              para chequear si este nodo pasÃ³ a estar
               desbalanceado */
         if(Altura(arbol->hizq)-Altura(arbol->hder)==2){
             if(dato<arbol->hizq->dato){
@@ -144,8 +144,18 @@ AVL *leeArchivoEnAVL(const char *nombreArchivoDatos){
     return(arbol);
 }
 
+int Contar(AVL *arbol){
+    if(arbol==NULL){
+        return(0);
+    }else{
+        return(Contar(arbol->hizq)+1+(Contar(arbol->hder)));
+    }
+}
+
 void Info(AVL *arbol){
-    printf("Altura del árbol: %i\n",arbol->altura);
+    int tamanoArbol=Contar(arbol);
+    printf("Altura del Ã¡rbol: %i\n",arbol->altura);
+    printf("TamaÃ±o del Ã¡rbol: %i\n",tamanoArbol);
     printf("Se realizaron:\n");
     printf("Rotaciones a la izquierda: %i\n",RotacionIzquierda);
     printf("Rotaciones a la derecha: %i\n",RotacionDerecha);
@@ -167,10 +177,10 @@ void printGivenLevel(AVL *root, int level)
     }
 }
 
-/* Función para recorrer un árbol en orden por nivel */
+/* FunciÃ³n para recorrer un Ã¡rbol en orden por nivel */
 void printLevelOrder(AVL *root)
 {
-    printf("\nRecorrido del árbol por nivel: \n");
+    printf("\nRecorrido del Ã¡rbol por nivel: \n");
     int h = root->altura;   //Altura(root)+1;
     int i;
     for (i=1; i<=h; i++){
