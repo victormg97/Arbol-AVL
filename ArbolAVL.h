@@ -144,11 +144,11 @@ AVL *leeArchivoEnAVL(const char *nombreArchivoDatos){
     return(arbol);
 }
 
-int Contar(AVL *arbol){
+int ContarAVL(AVL *arbol){
     if(arbol==NULL){
         return(0);
     }else{
-        return(Contar(arbol->hizq)+1+(Contar(arbol->hder)));
+        return(ContarAVL(arbol->hizq)+1+(ContarAVL(arbol->hder)));
     }
 }
 
